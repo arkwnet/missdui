@@ -1,9 +1,12 @@
 <template>
   <div class="main">
+    <div class="information">
+      将Misskey筆記転換為偽中国語的工具。輸入Misskey号、然後按「表示」。
+    </div>
     <div class="input">
-      <div class="description">Misskey帳号</div>
+      <div class="description">Misskey号 (例: @arkw@misskey.io)</div>
       <input type="text" class="text" v-model="inputModel" />
-      <div class="button" @click="convert">開始</div>
+      <div class="button" @click="convert">表示</div>
     </div>
     <div class="list">
       <div v-for="note in noteList" v-bind:key="note.id">
@@ -30,15 +33,15 @@ const noteList = ref(new Array())
 const convert = async () => {
   const userhost = inputModel.value.split('@')
   const user = await axios.post(
-    'https://' + userhost[1] + '/api/users/search-by-username-and-host',
+    'https://' + userhost[2] + '/api/users/search-by-username-and-host',
     {
-      username: userhost[0],
-      host: userhost[1],
+      username: userhost[1],
+      host: userhost[2],
       limit: 1,
       detail: false,
     },
   )
-  const notes = await axios.post('https://' + userhost[1] + '/api/users/notes', {
+  const notes = await axios.post('https://' + userhost[2] + '/api/users/notes', {
     userId: user.data[0].id,
     withReplies: true,
     withRenotes: false,
@@ -72,6 +75,14 @@ const convert = async () => {
   padding: 20px;
 }
 
+.main .information {
+  margin-bottom: 10px;
+  padding: 10px;
+  color: #757575;
+  background-color: #b3e5fc;
+  border-radius: 5px;
+}
+
 .main .input {
   overflow: hidden;
 }
@@ -79,7 +90,7 @@ const convert = async () => {
 .main .input .description {
   padding-right: 10px;
   padding-bottom: 4px;
-  color: #616161;
+  color: #757575;
 }
 
 .main .input .text {
