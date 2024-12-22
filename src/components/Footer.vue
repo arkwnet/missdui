@@ -14,7 +14,7 @@ import { ref, onMounted } from 'vue'
 const version = ref('')
 
 onMounted(() => {
-  version.value = import.meta.env.VITE_APP_VERSION
+  version.value = import.meta.env.PACKAGE_VERSION
 })
 </script>
 

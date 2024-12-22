@@ -1,18 +1,18 @@
 import { fileURLToPath, URL } from 'node:url'
-
 import { defineConfig } from 'vite'
+import packageJson from './package.json'
 import vue from '@vitejs/plugin-vue'
-import vueDevTools from 'vite-plugin-vue-devtools'
 
-// https://vite.dev/config/
+// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-    vueDevTools(),
-  ],
+  plugins: [vue()],
+  base: './',
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
+  },
+  define: {
+    'import.meta.env.PACKAGE_VERSION': JSON.stringify(packageJson.version),
   },
 })
