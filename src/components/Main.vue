@@ -43,6 +43,7 @@ const convert = async () => {
     withReplies: true,
     withRenotes: false,
     withChannelNotes: true,
+    limit: 30,
   })
   noteList.value.splice(0)
   for (let i = 0; i < notes.data.length; i++) {
@@ -53,13 +54,15 @@ const convert = async () => {
         result += textArray[i]
       }
     }
-    noteList.value.push({
-      id: notes.data[i].id,
-      avatarUrl: notes.data[i].user.avatarUrl,
-      name: notes.data[i].user.name,
-      createdAt: notes.data[i].createdAt,
-      text: result,
-    })
+    if (result != '') {
+      noteList.value.push({
+        id: notes.data[i].id,
+        avatarUrl: notes.data[i].user.avatarUrl,
+        name: notes.data[i].user.name,
+        createdAt: notes.data[i].createdAt,
+        text: result,
+      })
+    }
   }
 }
 </script>
