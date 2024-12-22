@@ -45,13 +45,17 @@ const props = defineProps(['avatarUrl', 'name', 'createdAt', 'text'])
 .note .right .name {
   color: #212121;
   font-weight: bold;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .note .right .created-at {
-  color: #424242;
+  color: #616161;
 }
 
 .note .right .text {
   color: #212121;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 </style>
