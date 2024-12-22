@@ -22,6 +22,8 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import Note from './Note.vue'
+const regexpKanji =
+  /^([\u{3005}\u{3007}\u{303b}\u{3400}-\u{9FFF}\u{F900}-\u{FAFF}\u{20000}-\u{2FFFF}][\u{E0100}-\u{E01EF}\u{FE00}-\u{FE02}]?)+$/mu
 const inputModel = ref('')
 const noteList = ref(new Array())
 
@@ -31,7 +33,7 @@ const convert = async () => {
     'https://' + userhost[1] + '/api/users/search-by-username-and-host',
     {
       username: userhost[0],
-      host: null,
+      host: userhost[1],
       limit: 1,
       detail: false,
     },
@@ -44,12 +46,19 @@ const convert = async () => {
   })
   noteList.value.splice(0)
   for (let i = 0; i < notes.data.length; i++) {
+    const textArray = Array.from(notes.data[i].text)
+    let result = ''
+    for (let i = 0; i < textArray.length; i++) {
+      if (regexpKanji.test(textArray[i]) == true) {
+        result += textArray[i]
+      }
+    }
     noteList.value.push({
       id: notes.data[i].id,
       avatarUrl: notes.data[i].user.avatarUrl,
       name: notes.data[i].user.name,
       createdAt: notes.data[i].createdAt,
-      text: notes.data[i].text,
+      text: result,
     })
   }
 }
