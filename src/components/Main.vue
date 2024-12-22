@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="input">
-      <div class="description">Misskey帳号:</div>
+      <div class="description">Misskey帳号</div>
       <input type="text" class="text" v-model="inputModel" />
       <div class="button" @click="convert">開始</div>
     </div>
@@ -69,25 +69,49 @@ const convert = async () => {
   padding: 20px;
 }
 
-.input {
+.main .input {
   overflow: hidden;
 }
 
-.input .description {
+.main .input .description {
   padding-right: 10px;
-  float: left;
+  padding-bottom: 4px;
+  color: #616161;
 }
 
-.input .text {
-  width: 160px;
-  height: 24px;
+.main .input .text {
+  width: 200px;
+  height: 32px;
+  margin-right: 10px;
+  padding-left: 4px;
   float: left;
+  border: 0;
+  border-radius: 4px;
+  outline: 0;
 }
 
-.input .button {
-  width: 60px;
-  height: 24px;
+.main .input .text:focus {
+  border: 1px solid #8bc34a;
+  outline: 0;
+}
+
+.main .input .button {
+  width: 100px;
+  height: 32px;
+  padding: 4px 0;
+  color: #fff;
+  background: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
+  border-radius: 16px;
   float: left;
   text-align: center;
+}
+
+.main .input .button:hover {
+  background: #8bc34a;
+  cursor: pointer;
+}
+
+.main .list {
+  margin-top: 15px;
 }
 </style>
